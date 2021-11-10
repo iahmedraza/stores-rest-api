@@ -1,6 +1,5 @@
 from flask_restful import Resource
 from models.store import StoreModel
-from db import db
 
 class Store(Resource):
     def get(self, name):
