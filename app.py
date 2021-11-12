@@ -8,8 +8,12 @@ from db import db
 from resources.store import Store, StoreList
 import os
 app = Flask(__name__)
+uri = os.environ.get("DATABASE_URL", "sqlite:///data.db")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://dlrrwaouhnepsy:b8ce179e2dc8f046eb95c85f90957a11b10309a772928be97a97fbdc5bd3f59f@ec2-63-34-223-144.eu-west-1.compute.amazonaws.com:5432/d6elsl9ksn7gkd" # os.environ.get("DATABASE_URL", "sqlite:///data.db") #(environment variable, default value if db url is not defined) 
+app.config["SQLALCHEMY_DATABASE_URI"] = uri #(environment variable, default value if db url is not defined) 
+print(uri)
 app.secret_key = "Ahmed"
 api = Api(app)
 
