@@ -9,7 +9,7 @@ from resources.store import Store, StoreList
 import os
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL", "sqlite:///data.db") #(environment variable, default value if db url is not defined) 
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL") #(environment variable, default value if db url is not defined) 
 app.secret_key = "Ahmed"
 api = Api(app)
 
@@ -24,7 +24,7 @@ api.add_resource(StoreList, '/stores')
 
 if __name__ == "__main__":
     db.init_app(app)
-    
+
     if app.config['DEBUG']:
         @app.before_first_request
         def create_tables():
